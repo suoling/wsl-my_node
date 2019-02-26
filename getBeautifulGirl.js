@@ -1,10 +1,12 @@
 var fs = require('fs')
 var request = require("request")
+// cheerio是nodejs的抓取页面模块，
+// 为服务器特别定制的，快速、灵活、实施的jQuery核心实现
 var cheerio = require("cheerio")
-var mkdirp = require('mkdirp')
 var http = require('http')
+// iconv-lite用于在node当中处理在各种操作系统出现的各种奇特编码，
+// 该模块不提供读写文件的操作，只提供文件编码转换的功能。
 var iconv = require('iconv-lite')
-
 var dir = './images'
 var baseUrl = 'http://www.mm131.com/xinggan/'
 
@@ -77,8 +79,8 @@ var xxxx = (html) => {
 
 var downFiles = function(arr){
     
-    arr.map((item, index) => {
-        item.map((aItem, aIndex) => {
+    arr.map(item => {
+        item.map(aItem => {
             download(aItem, dir, uuid() + '.jpg')
         })
     })   
@@ -88,7 +90,7 @@ getHTML(reqUrl,xxxx)
 
 var download = function(url, dir, filename){
     console.log(url)
-    request.head(url, function(err, res, body){
+    request.head(url, () => {
         request(url).pipe(fs.createWriteStream(dir + "/" + filename));
     })
 }
