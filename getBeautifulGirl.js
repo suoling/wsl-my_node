@@ -20,9 +20,10 @@ var getHTML = function (url, callback) {
             htmlDataLength += data.length;
         })
         res.on('end', function() {
-            // console.log(html)
+            // console.log(htmlData)
             var bufferHtmlData = Buffer.concat(htmlData,htmlDataLength)
             decodeHtmlData = iconv.decode(bufferHtmlData,'gbk');
+            console.log('decodeHtmlData:', decodeHtmlData)
             callback(decodeHtmlData)
         })
     })
